@@ -6,9 +6,19 @@ function StudentForm() {
   const [rollNo, setRollNo] = useState('');
   const [branch, setBranch] = useState('CSE (Data Science)');
   const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validation: Name and Roll No must not be empty
+    if (name.trim() === '' || rollNo.trim() === '') {
+      setError('Name and Roll No are required');
+      setMessage('');
+      return;
+    }
+
+    setError('');
     setMessage(`Student ${name} (${rollNo}) registered in ${branch}`);
     setName('');
     setRollNo('');
@@ -44,6 +54,7 @@ function StudentForm() {
 
       <button type="submit">Register</button>
 
+      {error && <p className="error">{error}</p>}
       {message && <p className="success">{message}</p>}
     </form>
   );
